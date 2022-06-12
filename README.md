@@ -1,11 +1,13 @@
 # Pastehub-API
 Simple API for https://github.com/Pastehub/Pastehub
 
-# Install (Same Directory as Pasting Site)
+# Install 
+
+## Same Directory as Pasting Site
 1. Download **api.php** to your Webserver.
 2. Done.
 
-# Install (Different Directory as Pasting Site)
+## Different Directory as Pasting Site
 1. Download Source Code to your Webserver.
 2. Edit **config.php** to fill in your Database Configuration.
 5. Done.
