@@ -16,6 +16,9 @@ switch($action){
     case "create":
         create();
         break;
+    case "get":
+        get();
+        break;
     default:
         //Return Error if no action matched
         exit(json_encode(["error"=>true, "error_type"=>"ACTION_INVALID"]));
@@ -54,6 +57,38 @@ function create(){
         }
 
         mysqli_stmt_close($stmt);
+    }
+}
+
+function get(){
+    // Attempt to connect to MySQL database
+    $mysqli = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
+
+    //Check if id parameter is set
+    if(!isset($_GET["id"])){
+        exit(json_encode(["error"=>true, "error_type"=>"ID_UNDEFINED"]));
+    }
+
+    //Check if id parameter is empty
+    if(empty($_GET["id"])){
+        exit(json_encode(["error"=>true, "error_type"=>"ID_EMPTY"]));
+    }
+
+    if($stmt = mysqli_prepare($mysqli, "SELECT content, UNIX_TIMESTAMP(create_time) as create_time FROM pastes WHERE id = ?")){
+        mysqli_stmt_bind_param($stmt, "s", $param_id);
+        $param_id = $_GET["id"];
+    
+        mysqli_stmt_execute($stmt);
+        mysqli_stmt_store_result($stmt);
+        mysqli_stmt_bind_result($stmt, $content, $create_time);
+    
+        if ($stmt->num_rows != 1){
+            exit(json_encode(["error"=>true, "error_type"=>"PASTE_NOT_FOUND"]));
+        }
+
+        while( $stmt->fetch() ) {
+            exit(json_encode(["error"=>false, "content"=>$content, "create_time"=>$create_time]));
+        }
     }
 }
 
