@@ -1,4 +1,4 @@
-# Pastehub-API
+# Paste-API
 Simple API for https://github.com/amboss-dev/Paste
 
 # Install 
