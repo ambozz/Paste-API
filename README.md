@@ -1,5 +1,5 @@
 # Paste-API
-Simple API for https://github.com/amboss-dev/Paste
+Simple API for https://github.com/ambozz/Paste
 
 # Install 
 
